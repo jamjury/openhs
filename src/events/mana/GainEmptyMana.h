@@ -2,15 +2,15 @@
 #define WINSTONE_GAINEMPTYMANA_H
 
 
-#include "events/Event.h"
+#include "../Event.h"
 
 class GainEmptyMana : public Event {
-    int amount;
+	int amount;
 
 public:
-    GainEmptyMana(int amount = 1) : amount(amount) {}
+	explicit GainEmptyMana(int amount = 1);
 
-    void occur(Player &player) override;
+	void occur(Player &player) override;
 };
 
 

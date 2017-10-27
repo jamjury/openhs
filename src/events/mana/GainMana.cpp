@@ -1,9 +1,10 @@
-#include <algorithm>
 #include "GainMana.h"
+#include "GainEmptyMana.h"
+#include "GainManaOnce.h"
 
-void GainMana::occur(Player &player) {
-	player.cur_mana = std::min(
-        player.cur_mana + amount,
-		player.cur_max_mana
-	);
-}
+GainMana::GainMana(int amount) :
+	CombinedEvent(
+		new GainEmptyMana(amount),
+		new GainManaOnce(amount)
+	)
+{}

@@ -8,6 +8,8 @@
  */
 class Player {
 public:
+	Player();
+
 	static const int MAX_MANA;
 
     int cur_mana;

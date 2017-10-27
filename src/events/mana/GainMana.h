@@ -2,15 +2,11 @@
 #define WINSTONE_GAINMANA_H
 
 
-#include "events/Event.h"
+#include "../CombinedEvent.h"
 
-class GainMana : public Event {
-    int amount;
-
+class GainMana : public CombinedEvent {
 public:
-    GainMana(int amount = 1) : amount(amount) {}
-
-    void occur(Player &player) override;
+	explicit GainMana(int amount);
 };
 
 

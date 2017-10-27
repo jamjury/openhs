@@ -7,3 +7,7 @@ void GainEmptyMana::occur(Player &player) {
 		player.MAX_MANA
 	);
 }
+
+GainEmptyMana::GainEmptyMana(int amount) :
+	amount(amount)
+{}
