@@ -14,6 +14,6 @@ public:
     int permanent_mana;
 };
 
-static const int PERMANENT_MANA_LIMIT = 10;
+static const int MANA_LIMIT = 10;
 
 #endif //WINSTONE_PLAYER_H

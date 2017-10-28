@@ -4,7 +4,7 @@
 void GainPermanentMana::occur(Player &player) {
 	player.permanent_mana = std::min(
 		player.permanent_mana + amount,
-		PERMANENT_MANA_LIMIT
+		MANA_LIMIT
 	);
 }
 
