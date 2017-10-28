@@ -1,8 +1,6 @@
 #include "Player.h"
 
-const int Player::MAX_MANA = 10;
-
 Player::Player() {
-	cur_max_mana = 0;
-	cur_mana = 0;
+	permanent_mana = 0;
+	temporary_mana = 0;
 }

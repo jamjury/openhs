@@ -1,10 +1,10 @@
 #include "GainMana.h"
-#include "GainEmptyMana.h"
-#include "GainManaOnce.h"
+#include "GainPermanentMana.h"
+#include "GainTemporaryMana.h"
 
 GainMana::GainMana(int amount) :
 	CombinedEvent(
-		new GainEmptyMana(amount),
-		new GainManaOnce(amount)
+		new GainPermanentMana(amount),
+		new GainTemporaryMana(amount)
 	)
 {}

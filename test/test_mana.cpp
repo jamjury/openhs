@@ -1,27 +1,94 @@
 #include <gtest/gtest.h>
 #include <Player.h>
-#include <events/mana/GainManaOnce.h>
-#include <events/mana/GainEmptyMana.h>
+#include <events/mana/GainTemporaryMana.h>
+#include <events/mana/GainPermanentMana.h>
 #include <events/mana/GainMana.h>
+#include <events/mana/RefreshMana.h>
 
-TEST(mana, gain_once_limit) {
+TEST(GainPermanentMana, LessThanLimit) {
 	Player player;
-	GainEmptyMana(5).occur(player);
-    GainManaOnce(6).occur(player);
-    EXPECT_EQ(player.cur_mana, 5);
+	int amount = 6;
+	ASSERT_LE(amount, PERMANENT_MANA_LIMIT);
+
+	GainPermanentMana(amount).occur(player);
+	EXPECT_EQ(player.permanent_mana, amount);
 }
 
-TEST(mana, gain_empty_limit) {
+TEST(GainPermanentMana, ExceedLimit) {
 	Player player;
-	GainEmptyMana(Player::MAX_MANA).occur(player);
-	GainEmptyMana(6).occur(player);
-	EXPECT_EQ(player.cur_max_mana, Player::MAX_MANA);
+	int amount = 15;
+	ASSERT_GT(amount, PERMANENT_MANA_LIMIT);
+
+	GainPermanentMana(amount).occur(player);
+	EXPECT_EQ(player.permanent_mana, PERMANENT_MANA_LIMIT);
 }
 
-TEST(mana, gain) {
+TEST(GainTemporaryMana, LessThanPermanent) {
 	Player player;
-	GainEmptyMana(3).occur(player);
-	GainMana(5).occur(player);
-	EXPECT_EQ(player.cur_mana, 5);
-	EXPECT_EQ(player.cur_max_mana, 8);
+	player.permanent_mana = 6;
+	int amount = 5;
+
+	GainTemporaryMana(amount).occur(player);
+	EXPECT_EQ(player.temporary_mana, amount);
+}
+
+TEST(GainTemporaryMana, ExceedPermanent) {
+	Player player;
+	player.permanent_mana = 6;
+	int amount = 7;
+
+	GainTemporaryMana(amount).occur(player);
+	EXPECT_EQ(player.temporary_mana, player.permanent_mana);
+}
+
+TEST(GainTemporaryMana, ExceedLimit) {
+	Player player;
+	player.permanent_mana = PERMANENT_MANA_LIMIT;
+	int amount = 11;
+	ASSERT_GT(amount, PERMANENT_MANA_LIMIT);
+
+	GainTemporaryMana(amount).occur(player);
+	EXPECT_EQ(player.temporary_mana, PERMANENT_MANA_LIMIT);
+}
+
+TEST(GainMana, LessThanLimit) {
+	Player player;
+	int amount = 5;
+	ASSERT_LE(amount, PERMANENT_MANA_LIMIT);
+
+	GainMana(amount).occur(player);
+	EXPECT_EQ(player.temporary_mana, amount);
+	EXPECT_EQ(player.permanent_mana, amount);
+}
+
+TEST(GainMana, ExceedLimitWithInitialPermanent) {
+	Player player;
+	int initial_permanent = 8;
+	int amount = 6;
+	player.permanent_mana = initial_permanent;
+	ASSERT_GT(amount + initial_permanent, PERMANENT_MANA_LIMIT);
+
+	GainMana(amount).occur(player);
+	EXPECT_EQ(player.temporary_mana, amount);
+	EXPECT_EQ(player.permanent_mana, PERMANENT_MANA_LIMIT);
+}
+
+TEST(RefreshMana, PermanentOnly) {
+	Player player;
+	player.permanent_mana = 5;
+	ASSERT_LE(player.permanent_mana, PERMANENT_MANA_LIMIT) <<
+		"Permanent mana amount cant exceed mana limit";
+
+	RefreshMana().occur(player);
+	EXPECT_EQ(player.temporary_mana, player.permanent_mana);
+}
+
+TEST(RefreshMana, TemporaryWithPermanent) {
+	Player player;
+	player.permanent_mana = 8;
+	player.temporary_mana = 6;
+	ASSERT_LE(player.permanent_mana, PERMANENT_MANA_LIMIT);
+
+	RefreshMana().occur(player);
+	EXPECT_EQ(player.temporary_mana, player.permanent_mana);
 }

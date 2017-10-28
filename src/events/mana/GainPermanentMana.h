@@ -4,11 +4,11 @@
 
 #include "../Event.h"
 
-class GainEmptyMana : public Event {
+class GainPermanentMana : public Event {
 	int amount;
 
 public:
-	explicit GainEmptyMana(int amount = 1);
+	explicit GainPermanentMana(int amount = 1);
 
 	void occur(Player &player) override;
 };

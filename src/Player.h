@@ -10,11 +10,10 @@ class Player {
 public:
 	Player();
 
-	static const int MAX_MANA;
-
-    int cur_mana;
-    int cur_max_mana;
+    int temporary_mana;
+    int permanent_mana;
 };
 
+static const int PERMANENT_MANA_LIMIT = 10;
 
 #endif //WINSTONE_PLAYER_H
