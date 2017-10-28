@@ -5,9 +5,9 @@
 #include "../Event.h"
 
 class GainTemporaryManaEvent : public Event {
-	int amount;
+	unsigned amount;
 public:
-	explicit GainTemporaryManaEvent(int amount);
+	explicit GainTemporaryManaEvent(unsigned amount);
 
 	void occur(Player &player) override;
 };

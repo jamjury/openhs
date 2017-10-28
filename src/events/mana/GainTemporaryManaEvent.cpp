@@ -8,6 +8,6 @@ void GainTemporaryManaEvent::occur(Player &player) {
 	);
 }
 
-GainTemporaryManaEvent::GainTemporaryManaEvent(int amount) :
+GainTemporaryManaEvent::GainTemporaryManaEvent(unsigned amount) :
 	amount(amount)
 {}

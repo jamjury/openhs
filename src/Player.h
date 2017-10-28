@@ -8,12 +8,12 @@
  */
 class Player {
 public:
-	static const int MANA_LIMIT;
+	static const unsigned MANA_LIMIT;
 
 	Player();
 
-	int temporary_mana;
-	int permanent_mana;
+	unsigned temporary_mana;
+	unsigned permanent_mana;
 };
 
 

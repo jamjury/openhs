@@ -5,4 +5,4 @@ Player::Player() {
 	temporary_mana = 0;
 }
 
-const int Player::MANA_LIMIT = 10;
+const unsigned Player::MANA_LIMIT = 10;

@@ -2,7 +2,7 @@
 #include "GainPermanentManaEvent.h"
 #include "GainTemporaryManaEvent.h"
 
-GainManaEvent::GainManaEvent(int amount) :
+GainManaEvent::GainManaEvent(unsigned amount) :
 	CombinedEvent(
 		new GainPermanentManaEvent(amount),
 		new GainTemporaryManaEvent(amount)

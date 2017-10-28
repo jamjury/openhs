@@ -6,7 +6,7 @@
 
 class GainManaEvent : public CombinedEvent {
 public:
-	explicit GainManaEvent(int amount);
+	explicit GainManaEvent(unsigned amount);
 };
 
 

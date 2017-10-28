@@ -8,6 +8,6 @@ void GainPermanentManaEvent::occur(Player &player) {
 	);
 }
 
-GainPermanentManaEvent::GainPermanentManaEvent(int amount) :
+GainPermanentManaEvent::GainPermanentManaEvent(unsigned amount) :
 	amount(amount)
 {}

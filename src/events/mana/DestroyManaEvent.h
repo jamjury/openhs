@@ -5,10 +5,10 @@
 #include "../Event.h"
 
 class DestroyManaEvent : public Event {
-	int amount;
+	unsigned amount;
 
 public:
-	explicit DestroyManaEvent(int amount);
+	explicit DestroyManaEvent(unsigned amount);
 
 	void occur(Player &player) override;
 };

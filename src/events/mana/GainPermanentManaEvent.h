@@ -5,10 +5,10 @@
 #include "../Event.h"
 
 class GainPermanentManaEvent : public Event {
-	int amount;
+	unsigned amount;
 
 public:
-	explicit GainPermanentManaEvent(int amount);
+	explicit GainPermanentManaEvent(unsigned amount);
 
 	void occur(Player &player) override;
 };

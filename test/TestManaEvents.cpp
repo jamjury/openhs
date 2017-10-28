@@ -8,7 +8,7 @@
 
 TEST(GainPermanentMana, LessThanLimit) {
 	Player player;
-	int amount = 6;
+	unsigned amount = 6;
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
@@ -18,7 +18,7 @@ TEST(GainPermanentMana, LessThanLimit) {
 
 TEST(GainPermanentMana, ExceedLimit) {
 	Player player;
-	int amount = 15;
+	unsigned amount = 15;
 
 	ASSERT_GT(amount, Player::MANA_LIMIT);
 
@@ -28,7 +28,7 @@ TEST(GainPermanentMana, ExceedLimit) {
 
 TEST(GainTemporaryMana, LessThanLimit) {
 	Player player;
-	int amount = 5;
+	unsigned amount = 5;
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
@@ -38,7 +38,7 @@ TEST(GainTemporaryMana, LessThanLimit) {
 
 TEST(GainTemporaryMana, ExceedLimit) {
 	Player player;
-	int amount = 11;
+	unsigned amount = 11;
 
 	ASSERT_GT(amount, Player::MANA_LIMIT);
 
@@ -48,7 +48,7 @@ TEST(GainTemporaryMana, ExceedLimit) {
 
 TEST(GainMana, LessThanLimit) {
 	Player player;
-	int amount = 5;
+	unsigned amount = 5;
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
@@ -59,7 +59,7 @@ TEST(GainMana, LessThanLimit) {
 
 TEST(GainMana, ExceedLimitWithInitialPermanent) {
 	Player player;
-	int amount = 6;
+	unsigned amount = 6;
 	player.permanent_mana = 6;
 
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
@@ -103,9 +103,9 @@ TEST(RefreshMana, TemporaryWithPermanent) {
 /// amount <= temporary && amount <= permanent
 TEST(DestroyMana, BothLeft) {
 	Player player;
-	int amount = 4;
-	int init_temporary = player.temporary_mana = 6;
-	int init_permanent = player.permanent_mana = 8;
+	unsigned amount = 4;
+	unsigned init_temporary = player.temporary_mana = 6;
+	unsigned init_permanent = player.permanent_mana = 8;
 
 	ASSERT_LE(amount, player.temporary_mana);
 	ASSERT_LE(amount, player.permanent_mana);
@@ -120,9 +120,9 @@ TEST(DestroyMana, BothLeft) {
 /// permanent <= amount && permanent <= temporary
 TEST(DestroyMana, TemporaryLeft) {
 	Player player;
-	int amount = 6;
-	int init_temporary = player.temporary_mana = 8;
-	int init_permanent = player.permanent_mana = 4;
+	unsigned amount = 6;
+	unsigned init_temporary = player.temporary_mana = 8;
+	unsigned init_permanent = player.permanent_mana = 4;
 
 	ASSERT_LE(player.permanent_mana, amount);
 	ASSERT_LE(player.permanent_mana, player.temporary_mana);
@@ -137,9 +137,9 @@ TEST(DestroyMana, TemporaryLeft) {
 /// temporary <= amount <= permanent
 TEST(DestroyMana, PermanentLeft) {
 	Player player;
-	int amount = 6;
+	unsigned amount = 6;
 	player.temporary_mana = 4;
-	int init_permanent = player.permanent_mana = 8;
+	unsigned init_permanent = player.permanent_mana = 8;
 
 	ASSERT_LE(player.temporary_mana, amount);
 	ASSERT_LE(amount, player.permanent_mana);
@@ -153,7 +153,7 @@ TEST(DestroyMana, PermanentLeft) {
 /// temporary <= permanent <= amount
 TEST(DestroyMana, BothFullyDestroyed) {
 	Player player;
-	int amount = 8;
+	unsigned amount = 8;
 	player.temporary_mana = 4;
 	player.permanent_mana = 6;
 
