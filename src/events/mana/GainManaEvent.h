@@ -4,9 +4,9 @@
 
 #include "../CombinedEvent.h"
 
-class GainMana : public CombinedEvent {
+class GainManaEvent : public CombinedEvent {
 public:
-	explicit GainMana(int amount);
+	explicit GainManaEvent(int amount);
 };
 
 

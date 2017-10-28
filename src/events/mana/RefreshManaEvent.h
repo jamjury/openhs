@@ -4,7 +4,7 @@
 
 #include "../Event.h"
 
-class RefreshMana : public Event {
+class RefreshManaEvent : public Event {
 public:
 	void occur(Player &player) override;
 };
