@@ -1,10 +1,10 @@
-#include <algorithm>
 #include "GainPermanentManaEvent.h"
+#include <algorithm>
 
 void GainPermanentManaEvent::occur(Player &player) {
 	player.permanent_mana = std::min(
 		player.permanent_mana + amount,
-		MANA_LIMIT
+		Player::MANA_LIMIT
 	);
 }
 

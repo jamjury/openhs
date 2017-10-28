@@ -8,12 +8,13 @@
  */
 class Player {
 public:
+	static const int MANA_LIMIT;
+
 	Player();
 
     int temporary_mana;
     int permanent_mana;
 };
 
-static const int MANA_LIMIT = 10;
 
 #endif //WINSTONE_PLAYER_H
