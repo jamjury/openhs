@@ -4,10 +4,12 @@
 #include <events/mana/GainPermanentManaEvent.h>
 #include <events/mana/GainManaEvent.h>
 #include <events/mana/RefreshManaEvent.h>
+#include <events/mana/DestroyManaEvent.h>
 
 TEST(GainPermanentMana, LessThanLimit) {
 	Player player;
 	int amount = 6;
+
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
 	GainPermanentManaEvent(amount).occur(player);
@@ -17,16 +19,18 @@ TEST(GainPermanentMana, LessThanLimit) {
 TEST(GainPermanentMana, ExceedLimit) {
 	Player player;
 	int amount = 15;
+
 	ASSERT_GT(amount, Player::MANA_LIMIT);
 
 	GainPermanentManaEvent(amount).occur(player);
 	EXPECT_EQ(player.permanent_mana, Player::MANA_LIMIT);
 }
 
-TEST(GainTemporaryMana, LessThanPermanent) {
+TEST(GainTemporaryMana, LessThanLimit) {
 	Player player;
-	player.permanent_mana = 6;
 	int amount = 5;
+
+	ASSERT_LE(amount, Player::MANA_LIMIT);
 
 	GainTemporaryManaEvent(amount).occur(player);
 	EXPECT_EQ(player.temporary_mana, amount);
@@ -35,6 +39,7 @@ TEST(GainTemporaryMana, LessThanPermanent) {
 TEST(GainTemporaryMana, ExceedLimit) {
 	Player player;
 	int amount = 11;
+
 	ASSERT_GT(amount, Player::MANA_LIMIT);
 
 	GainTemporaryManaEvent(amount).occur(player);
@@ -44,6 +49,7 @@ TEST(GainTemporaryMana, ExceedLimit) {
 TEST(GainMana, LessThanLimit) {
 	Player player;
 	int amount = 5;
+
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
 	GainManaEvent(amount).occur(player);
@@ -53,10 +59,11 @@ TEST(GainMana, LessThanLimit) {
 
 TEST(GainMana, ExceedLimitWithInitialPermanent) {
 	Player player;
-	int initial_permanent = 8;
 	int amount = 6;
-	player.permanent_mana = initial_permanent;
-	ASSERT_GT(amount + initial_permanent, Player::MANA_LIMIT);
+	player.permanent_mana = 6;
+
+	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
+	ASSERT_GT(amount + player.permanent_mana, Player::MANA_LIMIT);
 
 	GainManaEvent(amount).occur(player);
 	EXPECT_EQ(player.temporary_mana, amount);
@@ -66,8 +73,8 @@ TEST(GainMana, ExceedLimitWithInitialPermanent) {
 TEST(RefreshMana, PermanentOnly) {
 	Player player;
 	player.permanent_mana = 5;
-	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT) <<
-		"Permanent mana amount cant exceed mana limit";
+
+	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
 	RefreshManaEvent().occur(player);
 	EXPECT_EQ(player.temporary_mana, player.permanent_mana);
@@ -75,10 +82,86 @@ TEST(RefreshMana, PermanentOnly) {
 
 TEST(RefreshMana, TemporaryWithPermanent) {
 	Player player;
-	player.permanent_mana = 8;
 	player.temporary_mana = 6;
+	player.permanent_mana = 8;
+
+	ASSERT_LE(player.temporary_mana, Player::MANA_LIMIT);
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
 	RefreshManaEvent().occur(player);
 	EXPECT_EQ(player.temporary_mana, player.permanent_mana);
+}
+
+/**
+ * DestroyMana tests:
+ * 1. amount <= temporary && amount <= permanent
+ * 2. permanent <= amount && permanent <= temporary
+ * 3. temporary <= amount <= permanent
+ * 4. temporary <= permanent <= amount
+ */
+
+/// amount <= temporary && amount <= permanent
+TEST(DestroyMana, BothLeft) {
+	Player player;
+	int amount = 4;
+	int init_temporary = player.temporary_mana = 6;
+	int init_permanent = player.permanent_mana = 8;
+
+	ASSERT_LE(amount, player.temporary_mana);
+	ASSERT_LE(amount, player.permanent_mana);
+	ASSERT_LE(player.temporary_mana, Player::MANA_LIMIT);
+	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
+
+	DestroyManaEvent(amount).occur(player);
+	EXPECT_EQ(player.temporary_mana, init_temporary - amount);
+	EXPECT_EQ(player.permanent_mana, init_permanent - amount);
+}
+
+/// permanent <= amount && permanent <= temporary
+TEST(DestroyMana, TemporaryLeft) {
+	Player player;
+	int amount = 6;
+	int init_temporary = player.temporary_mana = 8;
+	int init_permanent = player.permanent_mana = 4;
+
+	ASSERT_LE(player.permanent_mana, amount);
+	ASSERT_LE(player.permanent_mana, player.temporary_mana);
+	ASSERT_LE(player.temporary_mana, Player::MANA_LIMIT);
+	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
+
+	DestroyManaEvent(amount).occur(player);
+	EXPECT_EQ(player.temporary_mana, init_temporary - init_permanent);
+	EXPECT_EQ(player.permanent_mana, 0);
+}
+
+/// temporary <= amount <= permanent
+TEST(DestroyMana, PermanentLeft) {
+	Player player;
+	int amount = 6;
+	player.temporary_mana = 4;
+	int init_permanent = player.permanent_mana = 8;
+
+	ASSERT_LE(player.temporary_mana, amount);
+	ASSERT_LE(amount, player.permanent_mana);
+	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
+
+	DestroyManaEvent(amount).occur(player);
+	EXPECT_EQ(player.temporary_mana, 0);
+	EXPECT_EQ(player.permanent_mana, init_permanent - amount);
+}
+
+/// temporary <= permanent <= amount
+TEST(DestroyMana, BothFullyDestroyed) {
+	Player player;
+	int amount = 8;
+	player.temporary_mana = 4;
+	player.permanent_mana = 6;
+
+	ASSERT_LE(player.temporary_mana, player.permanent_mana);
+	ASSERT_LE(player.permanent_mana, amount);
+	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
+
+	DestroyManaEvent(amount).occur(player);
+	EXPECT_EQ(player.temporary_mana, 0);
+	EXPECT_EQ(player.permanent_mana, 0);
 }

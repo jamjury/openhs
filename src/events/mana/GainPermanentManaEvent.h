@@ -8,7 +8,7 @@ class GainPermanentManaEvent : public Event {
 	int amount;
 
 public:
-	explicit GainPermanentManaEvent(int amount = 1);
+	explicit GainPermanentManaEvent(int amount);
 
 	void occur(Player &player) override;
 };

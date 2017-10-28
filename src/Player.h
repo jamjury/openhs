@@ -12,8 +12,8 @@ public:
 
 	Player();
 
-    int temporary_mana;
-    int permanent_mana;
+	int temporary_mana;
+	int permanent_mana;
 };
 
 

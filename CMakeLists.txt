@@ -3,7 +3,7 @@ project(winstone)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES src/events/Event.h src/Player.h src/events/mana/GainPermanentManaEvent.cpp src/events/mana/GainPermanentManaEvent.h src/Player.cpp src/events/CombinedEvent.cpp src/events/CombinedEvent.h src/events/mana/GainManaEvent.cpp src/events/mana/GainManaEvent.h src/events/mana/GainTemporaryManaEvent.cpp src/events/mana/GainTemporaryManaEvent.h src/events/mana/RefreshManaEvent.cpp src/events/mana/RefreshManaEvent.h)
+set(SOURCE_FILES src/events/Event.h src/Player.h src/events/mana/GainPermanentManaEvent.cpp src/events/mana/GainPermanentManaEvent.h src/Player.cpp src/events/CombinedEvent.cpp src/events/CombinedEvent.h src/events/mana/GainManaEvent.cpp src/events/mana/GainManaEvent.h src/events/mana/GainTemporaryManaEvent.cpp src/events/mana/GainTemporaryManaEvent.h src/events/mana/RefreshManaEvent.cpp src/events/mana/RefreshManaEvent.h src/events/mana/DestroyManaEvent.cpp src/events/mana/DestroyManaEvent.h)
 add_library(winstone ${SOURCE_FILES})
 
 include_directories(src)
