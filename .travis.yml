@@ -1,12 +1,25 @@
 language: cpp
 
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-5
+    - g++-5
+
+# Upgrade gcc to gcc5
+sudo: required
+before_script:
+  - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
+  - g++ --version
+
 install:
   - cd ${TRAVIS_BUILD_DIR}
   - CMAKE_URL="https://cmake.org/files/v3.8/cmake-3.8.2-Linux-x86_64.tar.gz"
   - mkdir cmake && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
   - export PATH=${TRAVIS_BUILD_DIR}/cmake/bin:${PATH}
   - cmake --version
-# TODO: upgrade gcc
 
 script:
   - mkdir build
