@@ -13,7 +13,9 @@ TEST(GainPermanentMana, LessThanLimit) {
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
-	GainPermanentManaEvent(amount).occur(board);
+	Event *event = new GainPermanentManaEvent(amount);
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.permanent_mana, amount);
 }
 
@@ -24,7 +26,9 @@ TEST(GainPermanentMana, ExceedLimit) {
 
 	ASSERT_GT(amount, Player::MANA_LIMIT);
 
-	GainPermanentManaEvent(amount).occur(board);
+	Event *event = new GainPermanentManaEvent(amount);
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.permanent_mana, Player::MANA_LIMIT);
 }
 
@@ -35,7 +39,9 @@ TEST(GainTemporaryMana, LessThanLimit) {
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
-	GainTemporaryManaEvent(amount).occur(board);
+	Event *event = new GainTemporaryManaEvent(amount);
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.temporary_mana, amount);
 }
 
@@ -46,7 +52,9 @@ TEST(GainTemporaryMana, ExceedLimit) {
 
 	ASSERT_GT(amount, Player::MANA_LIMIT);
 
-	GainTemporaryManaEvent(amount).occur(board);
+	Event *event = new GainTemporaryManaEvent(amount);
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.temporary_mana, Player::MANA_LIMIT);
 }
 
@@ -57,7 +65,9 @@ TEST(GainMana, LessThanLimit) {
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
-	GainManaEvent(amount).occur(board);
+	Event *event = new GainManaEvent(amount);
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.temporary_mana, amount);
 	EXPECT_EQ(player.permanent_mana, amount);
 }
@@ -71,7 +81,9 @@ TEST(GainMana, ExceedLimitWithInitialPermanent) {
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 	ASSERT_GT(amount + player.permanent_mana, Player::MANA_LIMIT);
 
-	GainManaEvent(amount).occur(board);
+	Event *event = new GainManaEvent(amount);
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.temporary_mana, amount);
 	EXPECT_EQ(player.permanent_mana, Player::MANA_LIMIT);
 }
@@ -83,7 +95,9 @@ TEST(RefreshMana, PermanentOnly) {
 
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	RefreshManaEvent().occur(board);
+	Event *event = new RefreshManaEvent();
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.temporary_mana, player.permanent_mana);
 }
 
@@ -96,7 +110,9 @@ TEST(RefreshMana, TemporaryWithPermanent) {
 	ASSERT_LE(player.temporary_mana, Player::MANA_LIMIT);
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	RefreshManaEvent().occur(board);
+	Event *event = new RefreshManaEvent();
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.temporary_mana, player.permanent_mana);
 }
 
@@ -121,7 +137,9 @@ TEST(DestroyMana, BothLeft) {
 	ASSERT_LE(player.temporary_mana, Player::MANA_LIMIT);
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	DestroyManaEvent(amount).occur(board);
+	Event *event = new DestroyManaEvent(amount);
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.temporary_mana, init_temporary - amount);
 	EXPECT_EQ(player.permanent_mana, init_permanent - amount);
 }
@@ -139,7 +157,9 @@ TEST(DestroyMana, TemporaryLeft) {
 	ASSERT_LE(player.temporary_mana, Player::MANA_LIMIT);
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	DestroyManaEvent(amount).occur(board);
+	Event *event = new DestroyManaEvent(amount);
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.temporary_mana, init_temporary - init_permanent);
 	EXPECT_EQ(player.permanent_mana, 0);
 }
@@ -156,7 +176,9 @@ TEST(DestroyMana, PermanentLeft) {
 	ASSERT_LE(amount, player.permanent_mana);
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	DestroyManaEvent(amount).occur(board);
+	Event *event = new DestroyManaEvent(amount);
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.temporary_mana, 0);
 	EXPECT_EQ(player.permanent_mana, init_permanent - amount);
 }
@@ -173,7 +195,9 @@ TEST(DestroyMana, BothFullyDestroyed) {
 	ASSERT_LE(player.permanent_mana, amount);
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	DestroyManaEvent(amount).occur(board);
+	Event *event = new DestroyManaEvent(amount);
+	event->set_board(&board);
+	event->occur();
 	EXPECT_EQ(player.temporary_mana, 0);
 	EXPECT_EQ(player.permanent_mana, 0);
 }

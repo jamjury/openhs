@@ -8,9 +8,12 @@
 class CombinedEvent : public Event {
 	std::unique_ptr<Event> first, second;
 public:
-	CombinedEvent(std::unique_ptr<Event> first, std::unique_ptr<Event> second);
+	CombinedEvent(
+		std::unique_ptr<Event> first,
+		std::unique_ptr<Event> second
+	);
 
-	void occur(Board &board) override;
+	void occur() override;
 };
 
 

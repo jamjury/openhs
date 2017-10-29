@@ -6,7 +6,7 @@
 
 class RefreshManaEvent : public Event {
 public:
-	void occur(Board &board) override;
+	void occur() override;
 };
 
 

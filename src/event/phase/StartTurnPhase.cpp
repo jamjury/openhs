@@ -7,7 +7,7 @@ StartTurnPhase::StartTurnPhase() {
 	events.emplace_back(new RefreshManaEvent);
 }
 
-void StartTurnPhase::occur(Board &board) {
-	Phase::occur(board);
+void StartTurnPhase::occur() {
+	Phase::occur();
 	// TODO: reset all counters related to 'this turn'
 }

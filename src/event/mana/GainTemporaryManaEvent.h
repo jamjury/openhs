@@ -9,7 +9,7 @@ class GainTemporaryManaEvent : public Event {
 public:
 	explicit GainTemporaryManaEvent(unsigned amount);
 
-	void occur(Board &board) override;
+	void occur() override;
 };
 
 

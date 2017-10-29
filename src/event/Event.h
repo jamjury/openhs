@@ -10,8 +10,16 @@
  * Event(s).)
  */
 class Event {
+protected:
+	Board *board;
+
 public:
-	virtual void occur(Board &board) = 0;
+	Event();
+	explicit Event(Board *board);
+
+	virtual void occur() = 0;
+
+	void set_board(Board *board);
 };
 
 

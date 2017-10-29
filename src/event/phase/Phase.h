@@ -11,7 +11,7 @@ protected:
 	std::vector<std::unique_ptr<Event>> events;
 
 public:
-	void occur(Board &board) override;
+	void occur() override;
 };
 
 
