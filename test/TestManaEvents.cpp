@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 #include <Player.h>
-#include <events/mana/GainTemporaryManaEvent.h>
-#include <events/mana/GainPermanentManaEvent.h>
-#include <events/mana/GainManaEvent.h>
-#include <events/mana/RefreshManaEvent.h>
-#include <events/mana/DestroyManaEvent.h>
+#include <event/mana/GainTemporaryManaEvent.h>
+#include <event/mana/GainPermanentManaEvent.h>
+#include <event/mana/GainManaEvent.h>
+#include <event/mana/RefreshManaEvent.h>
+#include <event/mana/DestroyManaEvent.h>
 
 TEST(GainPermanentMana, LessThanLimit) {
 	Player player;
