@@ -8,7 +8,7 @@ CombinedEvent::CombinedEvent(
 	second(std::move(second))
 {}
 
-void CombinedEvent::occur(Player &player) {
-	first->occur(player);
-	second->occur(player);
+void CombinedEvent::occur(Board &board) {
+	first->occur(board);
+	second->occur(board);
 }

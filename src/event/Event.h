@@ -2,7 +2,7 @@
 #define WINSTONE_EVENT_H
 
 
-#include "../Player.h"
+#include "../Board.h"
 
 /**
  * An Event is any change in the game state. For example: Damage Event, Heal
@@ -11,7 +11,7 @@
  */
 class Event {
 public:
-	virtual void occur(Player &player) = 0;
+	virtual void occur(Board &board) = 0;
 };
 
 

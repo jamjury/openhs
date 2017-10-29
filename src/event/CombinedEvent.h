@@ -10,7 +10,7 @@ class CombinedEvent : public Event {
 public:
 	CombinedEvent(std::unique_ptr<Event> first, std::unique_ptr<Event> second);
 
-	void occur(Player &player) override;
+	void occur(Board &board) override;
 };
 
 

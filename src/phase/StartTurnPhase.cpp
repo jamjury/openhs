@@ -2,7 +2,7 @@
 #include "../event/mana/RefreshManaEvent.h"
 
 StartTurnPhase::StartTurnPhase() {
-	events.emplace_back(new RefreshManaEvent());
+	events.emplace_back(new RefreshManaEvent);
 }
 
 void StartTurnPhase::start() {
