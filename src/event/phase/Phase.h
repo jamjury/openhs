@@ -2,16 +2,16 @@
 #define WINSTONE_PHASE_H
 
 
-#include "../event/Event.h"
+#include "../Event.h"
 #include <vector>
 #include <memory>
 
-class Phase {
+class Phase : public Event {
 protected:
 	std::vector<std::unique_ptr<Event>> events;
 
 public:
-	virtual void start() = 0;
+	void occur(Board &board) override;
 };
 
 
