@@ -3,15 +3,14 @@
 
 
 #include "Event.h"
+#include <memory>
 
 class CombinedEvent : public Event {
-	Event *first, *second;
+	std::unique_ptr<Event> first, second;
 public:
-	CombinedEvent(Event *first, Event *second);
+	CombinedEvent(std::unique_ptr<Event> first, std::unique_ptr<Event> second);
 
 	void occur(Player &player) override;
-
-	virtual ~CombinedEvent();
 };
 
 

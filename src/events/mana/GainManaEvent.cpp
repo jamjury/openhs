@@ -4,7 +4,7 @@
 
 GainManaEvent::GainManaEvent(unsigned amount) :
 	CombinedEvent(
-		new GainPermanentManaEvent(amount),
-		new GainTemporaryManaEvent(amount)
+		std::unique_ptr<Event>(new GainPermanentManaEvent(amount)),
+		std::unique_ptr<Event>(new GainTemporaryManaEvent(amount))
 	)
 {}
