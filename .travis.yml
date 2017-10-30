@@ -9,10 +9,8 @@ addons:
     - g++-5
 
 # Upgrade gcc to gcc5
-sudo: required
 before_script:
-  - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
-  - g++ --version
+  - export CXX=/usr/bin/g++5
 
 install:
   - cd ${TRAVIS_BUILD_DIR}
