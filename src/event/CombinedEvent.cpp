@@ -8,8 +8,7 @@ CombinedEvent::CombinedEvent(
 	second(std::move(second))
 {}
 
-void CombinedEvent::occur() {
-	Event::occur();
+void CombinedEvent::act() {
 	first->occur();
 	second->occur();
 }

@@ -1,4 +1,5 @@
 #include "Board.h"
+#include "Player.h"
 
 Board::Board() {
 	player_one = new Player;

@@ -6,7 +6,7 @@
 
 class RefreshManaEvent : public PlayerEvent {
 public:
-	void occur() override;
+	void act() override;
 };
 
 

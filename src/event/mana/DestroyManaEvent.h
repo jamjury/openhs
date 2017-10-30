@@ -10,7 +10,7 @@ class DestroyManaEvent : public PlayerEvent {
 public:
 	explicit DestroyManaEvent(unsigned amount);
 
-	void occur() override;
+	void act() override;
 };
 
 

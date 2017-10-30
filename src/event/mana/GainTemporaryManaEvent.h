@@ -9,7 +9,7 @@ class GainTemporaryManaEvent : public PlayerEvent {
 public:
 	explicit GainTemporaryManaEvent(unsigned amount);
 
-	void occur() override;
+	void act() override;
 };
 
 

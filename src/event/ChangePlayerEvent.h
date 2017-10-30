@@ -6,7 +6,7 @@
 
 class ChangePlayerEvent : public Event {
 public:
-	void occur() override;
+	void act() override;
 };
 
 

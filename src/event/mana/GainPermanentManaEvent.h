@@ -10,7 +10,7 @@ class GainPermanentManaEvent : public PlayerEvent {
 public:
 	explicit GainPermanentManaEvent(unsigned amount);
 
-	void occur() override;
+	void act() override;
 };
 
 

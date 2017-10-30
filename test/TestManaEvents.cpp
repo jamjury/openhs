@@ -5,6 +5,7 @@
 #include <event/mana/GainManaEvent.h>
 #include <event/mana/RefreshManaEvent.h>
 #include <event/mana/DestroyManaEvent.h>
+#include <Board.h>
 
 TEST(GainPermanentMana, LessThanLimit) {
 	Board board;
@@ -13,9 +14,7 @@ TEST(GainPermanentMana, LessThanLimit) {
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
-	Event *event = new GainPermanentManaEvent(amount);
-	event->set_board(&board);
-	event->occur();
+	board.start_event<GainPermanentManaEvent>(amount);
 	EXPECT_EQ(player.permanent_mana, amount);
 }
 
@@ -26,9 +25,7 @@ TEST(GainPermanentMana, ExceedLimit) {
 
 	ASSERT_GT(amount, Player::MANA_LIMIT);
 
-	Event *event = new GainPermanentManaEvent(amount);
-	event->set_board(&board);
-	event->occur();
+	board.start_event<GainPermanentManaEvent>(amount);
 	EXPECT_EQ(player.permanent_mana, Player::MANA_LIMIT);
 }
 
@@ -39,9 +36,7 @@ TEST(GainTemporaryMana, LessThanLimit) {
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
-	Event *event = new GainTemporaryManaEvent(amount);
-	event->set_board(&board);
-	event->occur();
+	board.start_event<GainTemporaryManaEvent>(amount);
 	EXPECT_EQ(player.temporary_mana, amount);
 }
 
@@ -52,9 +47,7 @@ TEST(GainTemporaryMana, ExceedLimit) {
 
 	ASSERT_GT(amount, Player::MANA_LIMIT);
 
-	Event *event = new GainTemporaryManaEvent(amount);
-	event->set_board(&board);
-	event->occur();
+	board.start_event<GainTemporaryManaEvent>(amount);
 	EXPECT_EQ(player.temporary_mana, Player::MANA_LIMIT);
 }
 
@@ -65,9 +58,7 @@ TEST(GainMana, LessThanLimit) {
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
-	Event *event = new GainManaEvent(amount);
-	event->set_board(&board);
-	event->occur();
+	board.start_event<GainManaEvent>(amount);
 	EXPECT_EQ(player.temporary_mana, amount);
 	EXPECT_EQ(player.permanent_mana, amount);
 }

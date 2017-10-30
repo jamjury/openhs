@@ -1,6 +1,5 @@
 #include "RefreshManaEvent.h"
 
-void RefreshManaEvent::occur() {
-	Event::occur();
+void RefreshManaEvent::act() {
 	player->temporary_mana = player->permanent_mana;
 }

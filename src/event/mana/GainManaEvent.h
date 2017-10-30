@@ -3,10 +3,13 @@
 
 
 #include "../CombinedEvent.h"
+#include "../PlayerEvent.h"
 
-class GainManaEvent : public CombinedEvent {
+class GainManaEvent : public CombinedEvent, public PlayerEvent {
 public:
 	explicit GainManaEvent(unsigned amount);
+
+	void set_board(Board *board) override;
 };
 
 

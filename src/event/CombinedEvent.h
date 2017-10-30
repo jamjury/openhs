@@ -5,7 +5,7 @@
 #include "Event.h"
 #include <memory>
 
-class CombinedEvent : public Event {
+class CombinedEvent : public virtual Event {
 	std::unique_ptr<Event> first, second;
 public:
 	CombinedEvent(
@@ -13,9 +13,10 @@ public:
 		std::unique_ptr<Event> second
 	);
 
-	void occur() override;
-
 	void set_board(Board *board) override;
+
+private:
+	virtual void act() override;
 };
 
 

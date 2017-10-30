@@ -12,7 +12,10 @@ protected:
 	std::vector<std::unique_ptr<Event>> events;
 
 public:
-	void occur() override;
+	void set_board(Board *board) override;
+
+private:
+	void act() override;
 };
 
 
