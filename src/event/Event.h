@@ -7,9 +7,8 @@ class Board;
 #include "../Board.h"
 
 /**
- * An Event is any change in the game state. For example: Damage Event, Heal
- * Event, Death Event, etc. (Additionally, all Phases have an associated
- * Event(s).)
+ * An Event is any change in the game state (Board). For example: Damage Event,
+ * Heal Event, Death Event, etc.
  */
 class Event {
 protected:
@@ -21,7 +20,7 @@ public:
 
 	virtual void occur() = 0;
 
-	void set_board(Board *board);
+	virtual void set_board(Board *board);
 };
 
 

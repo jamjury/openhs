@@ -2,9 +2,9 @@
 #define WINSTONE_DESTROYPERMANENTMANAEVENT_H
 
 
-#include "../Event.h"
+#include "../PlayerEvent.h"
 
-class DestroyManaEvent : public Event {
+class DestroyManaEvent : public PlayerEvent {
 	unsigned amount;
 
 public:

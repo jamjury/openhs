@@ -14,6 +14,8 @@ public:
 	);
 
 	void occur() override;
+
+	void set_board(Board *board) override;
 };
 
 

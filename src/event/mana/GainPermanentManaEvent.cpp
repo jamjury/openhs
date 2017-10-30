@@ -2,9 +2,8 @@
 #include <algorithm>
 
 void GainPermanentManaEvent::occur() {
-	Player &player = *board->current_player;
-	player.permanent_mana = std::min(
-		player.permanent_mana + amount,
+	player->permanent_mana = std::min(
+		player->permanent_mana + amount,
 		Player::MANA_LIMIT
 	);
 }

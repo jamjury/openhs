@@ -2,9 +2,9 @@
 #define WINSTONE_GAINMANAONCE_H
 
 
-#include "../Event.h"
+#include "../PlayerEvent.h"
 
-class GainTemporaryManaEvent : public Event {
+class GainTemporaryManaEvent : public PlayerEvent {
 	unsigned amount;
 public:
 	explicit GainTemporaryManaEvent(unsigned amount);

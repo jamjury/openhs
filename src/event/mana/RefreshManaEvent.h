@@ -2,9 +2,9 @@
 #define WINSTONE_REFRESHMANA_H
 
 
-#include "../Event.h"
+#include "../PlayerEvent.h"
 
-class RefreshManaEvent : public Event {
+class RefreshManaEvent : public PlayerEvent {
 public:
 	void occur() override;
 };

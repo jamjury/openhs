@@ -11,7 +11,7 @@ Event::Event(Board *board) :
 
 void Event::occur() {
 	if (!board)
-		throw std::logic_error("Event can't occur without board");
+		throw std::runtime_error("Event can't occur without board");
 }
 
 void Event::set_board(Board *board) {

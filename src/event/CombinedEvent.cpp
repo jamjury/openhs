@@ -10,8 +10,12 @@ CombinedEvent::CombinedEvent(
 
 void CombinedEvent::occur() {
 	Event::occur();
-	first->set_board(board);
 	first->occur();
-	second->set_board(board);
 	second->occur();
+}
+
+void CombinedEvent::set_board(Board *board) {
+	Event::set_board(board);
+	first->set_board(board);
+	second->set_board(board);
 }

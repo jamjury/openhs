@@ -6,6 +6,7 @@
 #include <vector>
 #include <memory>
 
+// Phase is just a group of events
 class Phase : public Event {
 protected:
 	std::vector<std::unique_ptr<Event>> events;
