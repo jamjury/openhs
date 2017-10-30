@@ -7,9 +7,13 @@
 #include <event/mana/DestroyManaEvent.h>
 #include <Board.h>
 
-TEST(GainPermanentMana, LessThanLimit) {
+
+struct ManaEvent : public ::testing::Test {
 	Board board;
 	Player &player = *board.current_player;
+};
+
+TEST_F(ManaEvent, GainPermanent_LessThanLimit) {
 	unsigned amount = 6;
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
@@ -18,9 +22,7 @@ TEST(GainPermanentMana, LessThanLimit) {
 	EXPECT_EQ(player.permanent_mana, amount);
 }
 
-TEST(GainPermanentMana, ExceedLimit) {
-	Board board;
-	Player &player = *board.current_player;
+TEST_F(ManaEvent, GainPermanent_ExceedLimit) {
 	unsigned amount = 15;
 
 	ASSERT_GT(amount, Player::MANA_LIMIT);
@@ -29,9 +31,7 @@ TEST(GainPermanentMana, ExceedLimit) {
 	EXPECT_EQ(player.permanent_mana, Player::MANA_LIMIT);
 }
 
-TEST(GainTemporaryMana, LessThanLimit) {
-	Board board;
-	Player &player = *board.current_player;
+TEST_F(ManaEvent, GainTemporary_LessThanLimit) {
 	unsigned amount = 5;
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
@@ -40,9 +40,7 @@ TEST(GainTemporaryMana, LessThanLimit) {
 	EXPECT_EQ(player.temporary_mana, amount);
 }
 
-TEST(GainTemporaryMana, ExceedLimit) {
-	Board board;
-	Player &player = *board.current_player;
+TEST_F(ManaEvent, GainTemporary_ExceedLimit) {
 	unsigned amount = 11;
 
 	ASSERT_GT(amount, Player::MANA_LIMIT);
@@ -51,9 +49,7 @@ TEST(GainTemporaryMana, ExceedLimit) {
 	EXPECT_EQ(player.temporary_mana, Player::MANA_LIMIT);
 }
 
-TEST(GainMana, LessThanLimit) {
-	Board board;
-	Player &player = *board.current_player;
+TEST_F(ManaEvent, Gain_LessThanLimit) {
 	unsigned amount = 5;
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
@@ -63,47 +59,35 @@ TEST(GainMana, LessThanLimit) {
 	EXPECT_EQ(player.permanent_mana, amount);
 }
 
-TEST(GainMana, ExceedLimitWithInitialPermanent) {
-	Board board;
-	Player &player = *board.current_player;
+TEST_F(ManaEvent, Gain_ExceedLimitWithInitialPermanent) {
 	unsigned amount = 6;
 	player.permanent_mana = 6;
 
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 	ASSERT_GT(amount + player.permanent_mana, Player::MANA_LIMIT);
 
-	Event *event = new GainManaEvent(amount);
-	event->set_board(&board);
-	event->occur();
+	board.start_event<GainManaEvent>(amount);
 	EXPECT_EQ(player.temporary_mana, amount);
 	EXPECT_EQ(player.permanent_mana, Player::MANA_LIMIT);
 }
 
-TEST(RefreshMana, PermanentOnly) {
-	Board board;
-	Player &player = *board.current_player;
+TEST_F(ManaEvent, Refresh_PermanentOnly) {
 	player.permanent_mana = 5;
 
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	Event *event = new RefreshManaEvent();
-	event->set_board(&board);
-	event->occur();
+	board.start_event<RefreshManaEvent>();
 	EXPECT_EQ(player.temporary_mana, player.permanent_mana);
 }
 
-TEST(RefreshMana, TemporaryWithPermanent) {
-	Board board;
-	Player &player = *board.current_player;
+TEST_F(ManaEvent, Refresh_TemporaryWithPermanent) {
 	player.temporary_mana = 6;
 	player.permanent_mana = 8;
 
 	ASSERT_LE(player.temporary_mana, Player::MANA_LIMIT);
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	Event *event = new RefreshManaEvent();
-	event->set_board(&board);
-	event->occur();
+	board.start_event<RefreshManaEvent>();
 	EXPECT_EQ(player.temporary_mana, player.permanent_mana);
 }
 
@@ -116,9 +100,7 @@ TEST(RefreshMana, TemporaryWithPermanent) {
  */
 
 /// amount <= temporary && amount <= permanent
-TEST(DestroyMana, BothLeft) {
-	Board board;
-	Player &player = *board.current_player;
+TEST_F(ManaEvent, Destroy_BothLeft) {
 	unsigned amount = 4;
 	unsigned init_temporary = player.temporary_mana = 6;
 	unsigned init_permanent = player.permanent_mana = 8;
@@ -128,17 +110,13 @@ TEST(DestroyMana, BothLeft) {
 	ASSERT_LE(player.temporary_mana, Player::MANA_LIMIT);
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	Event *event = new DestroyManaEvent(amount);
-	event->set_board(&board);
-	event->occur();
+	board.start_event<DestroyManaEvent>(amount);
 	EXPECT_EQ(player.temporary_mana, init_temporary - amount);
 	EXPECT_EQ(player.permanent_mana, init_permanent - amount);
 }
 
 /// permanent <= amount && permanent <= temporary
-TEST(DestroyMana, TemporaryLeft) {
-	Board board;
-	Player &player = *board.current_player;
+TEST_F(ManaEvent, Destroy_TemporaryLeft) {
 	unsigned amount = 6;
 	unsigned init_temporary = player.temporary_mana = 8;
 	unsigned init_permanent = player.permanent_mana = 4;
@@ -148,17 +126,13 @@ TEST(DestroyMana, TemporaryLeft) {
 	ASSERT_LE(player.temporary_mana, Player::MANA_LIMIT);
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	Event *event = new DestroyManaEvent(amount);
-	event->set_board(&board);
-	event->occur();
+	board.start_event<DestroyManaEvent>(amount);
 	EXPECT_EQ(player.temporary_mana, init_temporary - init_permanent);
 	EXPECT_EQ(player.permanent_mana, 0);
 }
 
 /// temporary <= amount <= permanent
-TEST(DestroyMana, PermanentLeft) {
-	Board board;
-	Player &player = *board.current_player;
+TEST_F(ManaEvent, Destroy_PermanentLeft) {
 	unsigned amount = 6;
 	player.temporary_mana = 4;
 	unsigned init_permanent = player.permanent_mana = 8;
@@ -167,17 +141,13 @@ TEST(DestroyMana, PermanentLeft) {
 	ASSERT_LE(amount, player.permanent_mana);
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	Event *event = new DestroyManaEvent(amount);
-	event->set_board(&board);
-	event->occur();
+	board.start_event<DestroyManaEvent>(amount);
 	EXPECT_EQ(player.temporary_mana, 0);
 	EXPECT_EQ(player.permanent_mana, init_permanent - amount);
 }
 
 /// temporary <= permanent <= amount
-TEST(DestroyMana, BothFullyDestroyed) {
-	Board board;
-	Player &player = *board.current_player;
+TEST_F(ManaEvent, Destroy_BothGone) {
 	unsigned amount = 8;
 	player.temporary_mana = 4;
 	player.permanent_mana = 6;
@@ -186,9 +156,7 @@ TEST(DestroyMana, BothFullyDestroyed) {
 	ASSERT_LE(player.permanent_mana, amount);
 	ASSERT_LE(player.permanent_mana, Player::MANA_LIMIT);
 
-	Event *event = new DestroyManaEvent(amount);
-	event->set_board(&board);
-	event->occur();
+	board.start_event<DestroyManaEvent>(amount);
 	EXPECT_EQ(player.temporary_mana, 0);
 	EXPECT_EQ(player.permanent_mana, 0);
 }
