@@ -2,6 +2,8 @@
 #define WINSTONE_EVENT_H
 
 
+class Board;
+
 #include "../Board.h"
 
 /**
