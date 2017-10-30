@@ -1,6 +1,5 @@
 #include "Event.h"
 #include "Board.h"
-#include <stdexcept>
 
 Event::Event() :
 	board(nullptr)
@@ -22,5 +21,5 @@ void Event::occur() {
 }
 
 void Event::resolve() {
-	board->trigger<decltype(*this)>();
+	board->trigger<std::remove_pointer<decltype(this)>::type>();
 }

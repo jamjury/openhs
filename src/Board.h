@@ -8,6 +8,7 @@
 #include <type_traits>
 #include <memory>
 #include <stdexcept>
+#include <iostream>
 #include "event/Event.h"
 class Player;
 
@@ -23,11 +24,12 @@ public:
 
 	template<typename Trigger>
 	void add_triggered_event(std::unique_ptr<Event> event) {
-		using DecayTrigger = typename std::decay<Trigger>::type;
-		static_assert(std::is_base_of<Event, DecayTrigger>::value,
-			"Can only add events");
+		static_assert(
+			std::is_base_of<Event, Trigger>::value,
+			"You can only pass classes that derive from Event here"
+		);
 
-		triggered_events[typeid(DecayTrigger)].push_back(move(event));
+		triggered_events[typeid(Trigger)].push_back(move(event));
 	}
 
 	template<typename Trigger>
@@ -37,22 +39,24 @@ public:
 
 	template<typename Trigger>
 	void trigger() {
-		using DecayTrigger = typename std::decay<Trigger>::type;
-		static_assert(std::is_base_of<Event, DecayTrigger>::value,
-			"Can only be triggered by event");
+		static_assert(
+			std::is_base_of<Event, Trigger>::value,
+			"You can only pass classes that derive from Event here"
+		);
 
-		for (auto &event : triggered_events[typeid(DecayTrigger)]) {
+		for (auto &event : triggered_events[typeid(Trigger)]) {
 			event->occur();
 		}
 	}
 
-	template<typename Event, typename ...Args>
+	template<typename StartingEvent, typename ...Args>
 	void start_event(Args && ...args) {
-		using DecayEvent = typename std::decay<Event>::type;
-		static_assert(std::is_base_of<::Event, DecayEvent>::value,
-			"Can only start events");
+		static_assert(
+			std::is_base_of<Event, StartingEvent>::value,
+			"You can only pass classes that derive from Event here"
+		);
 
-		::Event* event = new Event(std::forward<Args>(args)...);
+		Event *event = new StartingEvent(std::forward<Args>(args)...);
 		event->set_board(this);
 		event->occur();
 	}
