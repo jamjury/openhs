@@ -1,5 +1,5 @@
-#ifndef WINSTONE_PLAYER_H
-#define WINSTONE_PLAYER_H
+#ifndef OPENHS_PLAYER_H
+#define OPENHS_PLAYER_H
 
 
 /**
@@ -17,4 +17,4 @@ public:
 };
 
 
-#endif //WINSTONE_PLAYER_H
+#endif //OPENHS_PLAYER_H

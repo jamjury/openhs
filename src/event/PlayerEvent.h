@@ -1,5 +1,5 @@
-#ifndef WINSTONE_PLAYEREVENT_H
-#define WINSTONE_PLAYEREVENT_H
+#ifndef OPENHS_PLAYEREVENT_H
+#define OPENHS_PLAYEREVENT_H
 
 
 #include "Event.h"
@@ -16,4 +16,4 @@ public:
 };
 
 
-#endif //WINSTONE_PLAYEREVENT_H
+#endif //OPENHS_PLAYEREVENT_H

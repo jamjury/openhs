@@ -1,5 +1,5 @@
-#ifndef WINSTONE_REFRESHMANA_H
-#define WINSTONE_REFRESHMANA_H
+#ifndef OPENHS_REFRESHMANA_H
+#define OPENHS_REFRESHMANA_H
 
 
 #include "../PlayerEvent.h"
@@ -10,4 +10,4 @@ public:
 };
 
 
-#endif //WINSTONE_REFRESHMANA_H
+#endif //OPENHS_REFRESHMANA_H

@@ -1,5 +1,5 @@
-#ifndef WINSTONE_EVENT_H
-#define WINSTONE_EVENT_H
+#ifndef OPENHS_EVENT_H
+#define OPENHS_EVENT_H
 
 
 class Board;
@@ -14,6 +14,7 @@ protected:
 
 public:
 	Event();
+
 	explicit Event(Board *board);
 
 	virtual ~Event() {}
@@ -33,4 +34,4 @@ private:
 };
 
 
-#endif //WINSTONE_EVENT_H
+#endif //OPENHS_EVENT_H

@@ -1,4 +1,4 @@
-# winstone
+# OpenHS
 
 [![Build Status](https://travis-ci.org/jamjury/winstone.svg?branch=master)](https://travis-ci.org/jamjury/winstone)
 

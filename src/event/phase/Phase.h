@@ -1,5 +1,5 @@
-#ifndef WINSTONE_PHASE_H
-#define WINSTONE_PHASE_H
+#ifndef OPENHS_PHASE_H
+#define OPENHS_PHASE_H
 
 
 #include "../Event.h"
@@ -19,4 +19,4 @@ private:
 };
 
 
-#endif //WINSTONE_PHASE_H
+#endif //OPENHS_PHASE_H

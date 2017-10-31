@@ -3,6 +3,7 @@
 #include <Board.h>
 
 int trigger_order = 0, event_order = 0, order = 1;
+
 TEST(Triggers, EventWithOneTrigger) {
 	class Trigger : public Event {
 		void act() override {

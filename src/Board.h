@@ -1,5 +1,5 @@
-#ifndef WINSTONE_BOARD_H
-#define WINSTONE_BOARD_H
+#ifndef OPENHS_BOARD_H
+#define OPENHS_BOARD_H
 
 
 #include <vector>
@@ -7,6 +7,7 @@
 #include <typeindex>
 
 class Event;
+
 class Player;
 
 class Board {
@@ -16,7 +17,7 @@ public:
 
 	std::unordered_map<
 		std::type_index,
-		std::vector<Event*>
+		std::vector<Event *>
 	> triggered_events;
 
 	// Add consequence of a trigger
@@ -38,7 +39,7 @@ public:
 	void trigger_consequences(Event *event);
 
 	template<typename StartingEvent, typename ...Args>
-	void start_event(Args && ...args);
+	void start_event(Args &&...args);
 
 	Board();
 
@@ -60,13 +61,13 @@ void Board::add_conseq(Event *conseq) {
 }
 
 template<typename Trigger1, typename Trigger2, typename ...OtherTriggers>
-void Board::add_conseq(Event *consequence) {
-	add_conseq<Trigger1>(consequence);
-	add_conseq<Trigger2, OtherTriggers...>(consequence);
+void Board::add_conseq(Event *conseq) {
+	add_conseq<Trigger1>(conseq);
+	add_conseq<Trigger2, OtherTriggers...>(conseq);
 }
 
 template<typename Trigger>
-void Board::remove_conseq(Event *conseq)  {
+void Board::remove_conseq(Event *conseq) {
 	static_assert(
 		std::is_base_of<Event, Trigger>::value,
 		"You can only pass classes that derive from Event here"
@@ -78,9 +79,9 @@ void Board::remove_conseq(Event *conseq)  {
 }
 
 template<typename Trigger1, typename Trigger2, typename ...OtherTriggers>
-void Board::remove_conseq(Event *consequence) {
-	remove_conseq<Trigger1>(consequence);
-	remove_conseq<Trigger2, OtherTriggers...>(consequence);
+void Board::remove_conseq(Event *conseq) {
+	remove_conseq<Trigger1>(conseq);
+	remove_conseq<Trigger2, OtherTriggers...>(conseq);
 }
 
 template<typename StartingEvent, typename ...Args>
@@ -96,4 +97,4 @@ void Board::start_event(Args &&... args) {
 	delete event;
 }
 
-#endif //WINSTONE_BOARD_H
+#endif //OPENHS_BOARD_H

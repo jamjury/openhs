@@ -1,5 +1,5 @@
-#ifndef WINSTONE_COMBINEDEVENT_H
-#define WINSTONE_COMBINEDEVENT_H
+#ifndef OPENHS_COMBINEDEVENT_H
+#define OPENHS_COMBINEDEVENT_H
 
 
 #include "Event.h"
@@ -20,4 +20,4 @@ private:
 };
 
 
-#endif //WINSTONE_COMBINEDEVENT_H
+#endif //OPENHS_COMBINEDEVENT_H

@@ -1,5 +1,5 @@
-#ifndef WINSTONE_GAINEMPTYMANA_H
-#define WINSTONE_GAINEMPTYMANA_H
+#ifndef OPENHS_GAINEMPTYMANA_H
+#define OPENHS_GAINEMPTYMANA_H
 
 
 #include "../PlayerEvent.h"
@@ -14,4 +14,4 @@ public:
 };
 
 
-#endif //WINSTONE_GAINEMPTYMANA_H
+#endif //OPENHS_GAINEMPTYMANA_H

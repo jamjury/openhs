@@ -1,5 +1,5 @@
-#ifndef WINSTONE_GAINMANAONCE_H
-#define WINSTONE_GAINMANAONCE_H
+#ifndef OPENHS_GAINMANAONCE_H
+#define OPENHS_GAINMANAONCE_H
 
 
 #include "../PlayerEvent.h"
@@ -13,4 +13,4 @@ public:
 };
 
 
-#endif //WINSTONE_GAINMANAONCE_H
+#endif //OPENHS_GAINMANAONCE_H

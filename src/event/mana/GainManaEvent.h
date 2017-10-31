@@ -1,5 +1,5 @@
-#ifndef WINSTONE_GAINMANA_H
-#define WINSTONE_GAINMANA_H
+#ifndef OPENHS_GAINMANA_H
+#define OPENHS_GAINMANA_H
 
 
 #include "../CombinedEvent.h"
@@ -13,4 +13,4 @@ public:
 };
 
 
-#endif //WINSTONE_GAINMANA_H
+#endif //OPENHS_GAINMANA_H
