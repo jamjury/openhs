@@ -15,11 +15,12 @@ void Event::set_board(Board *board) {
 
 void Event::occur() {
 	if (!board)
-		throw std::runtime_error("Event can't occur without board");
+		throw std::runtime_error("Event can't occur without board."
+			"You should call set_board() first");
 	act();
 	resolve();
 }
 
 void Event::resolve() {
-	board->trigger<std::remove_pointer<decltype(this)>::type>();
+	board->trigger_consequences(this);
 }

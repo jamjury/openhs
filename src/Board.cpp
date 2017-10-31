@@ -11,3 +11,10 @@ Board::~Board() {
 	delete player_one;
 	delete player_two;
 }
+
+void Board::trigger_consequences(Event *event) {
+	for (auto &consequence : triggered_events[typeid(*event)]) {
+		consequence->set_board(this);
+		consequence->occur();
+	}
+}

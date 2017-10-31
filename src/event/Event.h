@@ -16,7 +16,9 @@ public:
 	Event();
 	explicit Event(Board *board);
 
-	virtual void occur();
+	virtual ~Event() {}
+
+	void occur();
 
 	virtual void set_board(Board *board);
 

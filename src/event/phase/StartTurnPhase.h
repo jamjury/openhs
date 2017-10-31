@@ -7,8 +7,6 @@
 class StartTurnPhase : public Phase {
 public:
 	StartTurnPhase();
-
-	void occur() override;
 };
 
 

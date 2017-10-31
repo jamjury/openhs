@@ -16,7 +16,7 @@ public:
 	void set_board(Board *board) override;
 
 private:
-	virtual void act() override;
+	void act() override;
 };
 
 
