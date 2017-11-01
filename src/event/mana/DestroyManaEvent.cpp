@@ -8,13 +8,13 @@ DestroyManaEvent::DestroyManaEvent(unsigned amount) :
 void DestroyManaEvent::act() {
 	// Destroying not more permanent mana than we have
 	unsigned permanent_destroyed = std::min(
-		player->permanent_mana,
+		player->perm_mana,
 		amount
 	);
-	player->permanent_mana -= permanent_destroyed;
+	player->perm_mana -= permanent_destroyed;
 	// Destroying not more temporaty mana than permanent
-	player->temporary_mana -= std::min(
-		player->temporary_mana,
+	player->temp_mana -= std::min(
+		player->temp_mana,
 		permanent_destroyed
 	);
 }

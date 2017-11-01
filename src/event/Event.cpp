@@ -22,5 +22,5 @@ void Event::occur() {
 }
 
 void Event::resolve() {
-	board->trigger_consequences(this);
+	board->trigger_conseq(this);
 }

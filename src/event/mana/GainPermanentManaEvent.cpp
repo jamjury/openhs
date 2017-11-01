@@ -2,8 +2,8 @@
 #include <algorithm>
 
 void GainPermanentManaEvent::act() {
-	player->permanent_mana = std::min(
-		player->permanent_mana + amount,
+	player->perm_mana = std::min(
+		player->perm_mana + amount,
 		Player::MANA_LIMIT
 	);
 }

@@ -13,12 +13,15 @@ class Player;
 class Board {
 public:
 	Player *player_one, *player_two;
+	// A player that makes a move
 	Player *current_player;
 
 	std::unordered_map<
 		std::type_index,
 		std::vector<Event *>
 	> triggered_events;
+
+	Player *current_opponent();
 
 	// Add consequence of a trigger
 	template<typename Trigger>
@@ -36,7 +39,7 @@ public:
 	template<typename Trigger1, typename Trigger2, typename ...OtherTriggers>
 	void remove_conseq(Event *conseq);
 
-	void trigger_consequences(Event *event);
+	void trigger_conseq(Event *event);
 
 	template<typename StartingEvent, typename ...Args>
 	void start_event(Args &&...args);

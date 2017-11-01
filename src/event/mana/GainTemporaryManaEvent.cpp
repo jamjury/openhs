@@ -2,8 +2,8 @@
 #include <algorithm>
 
 void GainTemporaryManaEvent::act() {
-	player->temporary_mana = std::min(
-		player->temporary_mana + amount,
+	player->temp_mana = std::min(
+		player->temp_mana + amount,
 		Player::MANA_LIMIT
 	);
 }

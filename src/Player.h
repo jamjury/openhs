@@ -12,8 +12,8 @@ public:
 
 	Player();
 
-	unsigned temporary_mana;
-	unsigned permanent_mana;
+	unsigned temp_mana;
+	unsigned perm_mana;
 };
 
 
