@@ -1,5 +1,5 @@
 # OpenHS
 
-[![Build Status](https://travis-ci.org/jamjury/winstone.svg?branch=master)](https://travis-ci.org/jamjury/winstone)
+[![Build Status](https://travis-ci.org/jamjury/openhs.svg?branch=master)](https://travis-ci.org/jamjury/openhs)
 
-Hearthstone simulator written in C++ based on the https://hearthstone.gamepedia.com/Advanced_rulebook
+Hearthstone C++ library for board state simulations based on the https://hearthstone.gamepedia.com/Advanced_rulebook
