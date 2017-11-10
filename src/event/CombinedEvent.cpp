@@ -1,11 +1,11 @@
 #include "CombinedEvent.h"
 
 CombinedEvent::CombinedEvent(
-	std::unique_ptr<Event> first,
-	std::unique_ptr<Event> second
+	Event *first,
+	Event *second
 ) :
-	first(std::move(first)),
-	second(std::move(second))
+	first(first),
+	second(second)
 {}
 
 void CombinedEvent::act() {
@@ -17,4 +17,9 @@ void CombinedEvent::set_board(Board *board) {
 	Event::set_board(board);
 	first->set_board(board);
 	second->set_board(board);
+}
+
+CombinedEvent::~CombinedEvent() {
+	delete first;
+	delete second;
 }

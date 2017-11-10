@@ -6,12 +6,15 @@
 #include <memory>
 
 class CombinedEvent : public virtual Event {
-	std::unique_ptr<Event> first, second;
+	Event *first, *second;
 public:
+	// Will remove both events on destruction
 	CombinedEvent(
-		std::unique_ptr<Event> first,
-		std::unique_ptr<Event> second
+		Event *first,
+		Event *second
 	);
+
+	virtual ~CombinedEvent();
 
 	void set_board(Board *board) override;
 

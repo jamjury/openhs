@@ -5,7 +5,8 @@
 #include "Event.h"
 #include "Player.h"
 
-// Just an Event that has field player (=board.current_player) for DRY code
+// Event that has field player (=board.current_player)
+// Helper class.
 class PlayerEvent : public virtual Event {
 public:
 	Player *player;
