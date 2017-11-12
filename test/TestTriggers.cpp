@@ -4,7 +4,7 @@
 
 int trigger_order = 0, event_order = 0, order = 1;
 
-TEST(Triggers, EventWithOneTrigger) {
+TEST(Trigger, EventWithOneTrigger) {
 	class Trigger : public Event {
 		void act() override {
 			trigger_order = order++;
@@ -16,8 +16,10 @@ TEST(Triggers, EventWithOneTrigger) {
 		}
 	};
 	Board board;
-	board.add_conseq<Trigger>(new TriggeredEvent());
+	auto *conseq = new TriggeredEvent();
+	board.add_conseq<Trigger>(conseq);
 	board.start_event<Trigger>();
 	EXPECT_EQ(trigger_order, 1);
 	EXPECT_EQ(event_order, 2);
+	delete conseq;
 }

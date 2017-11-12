@@ -12,7 +12,7 @@ void DestroyManaEvent::act() {
 		amount
 	);
 	player->perm_mana -= permanent_destroyed;
-	// Destroying not more temporaty mana than permanent
+	// Destroying not more temporary mana than permanent
 	player->temp_mana -= std::min(
 		player->temp_mana,
 		permanent_destroyed
