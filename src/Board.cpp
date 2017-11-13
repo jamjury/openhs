@@ -23,3 +23,7 @@ void Board::trigger_conseq(Event *event) {
 Player *Board::current_opponent() {
 	return current_player == player_two ? player_one : player_two;
 }
+
+void Board::switch_player() {
+	current_player = current_opponent();
+}

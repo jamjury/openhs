@@ -10,18 +10,26 @@ class Event;
 
 class Player;
 
-class Board {
-public:
-	Player *player_one, *player_two;
-	// A player that makes a move
-	Player *current_player;
+class Board final {
+	friend Event;
 
 	std::unordered_map<
 		std::type_index,
 		std::vector<Event *>
 	> triggered_events;
 
+	void trigger_conseq(Event *event);
+
+public:
+	Player *player_one, *player_two;
+	// A player that makes a move
+	Player *current_player;
+
 	Player *current_opponent();
+
+	Board();
+
+	~Board();
 
 	// Add consequence of a trigger
 	template<typename Trigger>
@@ -35,21 +43,16 @@ public:
 	template<typename Trigger>
 	void remove_conseq(Event *conseq);
 
-	// Remove consequence of a multiple trigger
+	// Remove consequence of a multiple triggers
 	template<typename Trigger1, typename Trigger2, typename ...OtherTriggers>
 	void remove_conseq(Event *conseq);
-
-	void trigger_conseq(Event *event);
 
 	template<typename StartingEvent, typename ...Args>
 	void start_event(Args &&...args);
 
-	Board();
-
-	~Board();
+	void switch_player();
 };
 
-#include "event/Event.h"
 #include <type_traits>
 #include <algorithm>
 

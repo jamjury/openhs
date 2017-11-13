@@ -2,8 +2,6 @@
 #define OPENHS_ZONE_H
 
 
-#include <vector>
-
 class Player;
 class Card;
 

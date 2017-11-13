@@ -1,8 +1,8 @@
 #include "StartTurnPhase.h"
-#include "../ChangePlayerEvent.h"
-#include "../mana/RefreshManaEvent.h"
+#include "Board.h"
+#include "Player.h"
 
 StartTurnPhase::StartTurnPhase() {
-	events.emplace_back(new ChangePlayerEvent);
-	events.emplace_back(new RefreshManaEvent);
+	board->switch_player();
+	board->current_player->refresh_mana();
 }

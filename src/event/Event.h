@@ -5,8 +5,8 @@
 class Board;
 
 /**
- * An Event is any change in the game state (Board). For example: Damage Event,
- * Heal Event, Death Event, etc.
+ * An Event is a change in the board state that can trigger other changes.
+ * For example: Damage Event, Heal Event, Death Event, etc.
  */
 class Event {
 protected:
