@@ -3,7 +3,7 @@
 
 void PlayerEvent::set_board(Board *board) {
 	Event::set_board(board);
-	set_player(board->get_current_player());
+	set_player(&board->get_cur_player());
 }
 
 void PlayerEvent::set_player(Player *player) {

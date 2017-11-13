@@ -3,14 +3,14 @@
 #include "Player.h"
 
 Board::Board() {
-	player_one = new Player;
-	player_two = new Player;
-	current_player = player_one;
+	player1 = new Player;
+	player2 = new Player;
+	cur_player = player1;
 }
 
 Board::~Board() {
-	delete player_one;
-	delete player_two;
+	delete player1;
+	delete player2;
 }
 
 void Board::trigger_conseq(Event *event) {
@@ -20,14 +20,14 @@ void Board::trigger_conseq(Event *event) {
 	}
 }
 
-Player *Board::current_opponent() {
-	return current_player == player_two ? player_one : player_two;
+Player &Board::get_cur_opp() const {
+	return cur_player == player2 ? *player1 : *player2;
 }
 
 void Board::switch_player() {
-	current_player = current_opponent();
+	cur_player = &get_cur_opp();
 }
 
-Player *Board::get_current_player() const {
-	return current_player;
+Player &Board::get_cur_player() const {
+	return *cur_player;
 }

@@ -13,9 +13,9 @@ class Player;
 class Board final {
 	friend Event;
 
-	Player *player_one, *player_two;
+	Player *player1, *player2;
 	// A player that makes a move
-	Player *current_player;
+	Player *cur_player;
 
 	std::unordered_map<
 		std::type_index,
@@ -48,9 +48,9 @@ public:
 	template<typename StartingEvent, typename ...Args>
 	void start_event(Args &&...args);
 
-	Player *get_current_player() const;
+	Player &get_cur_player() const;
 
-	Player *current_opponent();
+	Player &get_cur_opp() const;
 
 	void switch_player();
 };

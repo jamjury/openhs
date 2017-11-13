@@ -3,6 +3,7 @@
 
 
 class Card {
+	int cost;
 };
 
 

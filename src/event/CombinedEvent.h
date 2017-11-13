@@ -13,7 +13,7 @@ public:
 		Event *second
 	);
 
-	virtual ~CombinedEvent();
+	~CombinedEvent() override;
 
 	void set_board(Board *board) override;
 
