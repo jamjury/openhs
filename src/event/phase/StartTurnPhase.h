@@ -5,8 +5,7 @@
 #include "Phase.h"
 
 class StartTurnPhase : public Phase {
-public:
-	StartTurnPhase();
+	void act() override;
 };
 
 

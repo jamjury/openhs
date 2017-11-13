@@ -27,3 +27,7 @@ Player *Board::current_opponent() {
 void Board::switch_player() {
 	current_player = current_opponent();
 }
+
+Player *Board::get_current_player() const {
+	return current_player;
+}

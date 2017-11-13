@@ -2,7 +2,7 @@
 #include "Board.h"
 #include "Player.h"
 
-StartTurnPhase::StartTurnPhase() {
+void StartTurnPhase::act() {
 	board->switch_player();
-	board->current_player->refresh_mana();
+	board->get_current_player()->refresh_mana();
 }

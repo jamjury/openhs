@@ -13,6 +13,10 @@ class Player;
 class Board final {
 	friend Event;
 
+	Player *player_one, *player_two;
+	// A player that makes a move
+	Player *current_player;
+
 	std::unordered_map<
 		std::type_index,
 		std::vector<Event *>
@@ -21,12 +25,6 @@ class Board final {
 	void trigger_conseq(Event *event);
 
 public:
-	Player *player_one, *player_two;
-	// A player that makes a move
-	Player *current_player;
-
-	Player *current_opponent();
-
 	Board();
 
 	~Board();
@@ -49,6 +47,10 @@ public:
 
 	template<typename StartingEvent, typename ...Args>
 	void start_event(Args &&...args);
+
+	Player *get_current_player() const;
+
+	Player *current_opponent();
 
 	void switch_player();
 };
