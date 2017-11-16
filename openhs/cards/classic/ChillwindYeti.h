@@ -2,7 +2,7 @@
 #define OPENHS_CHILLWINDYETI_H
 
 
-#include "Minion.h"
+#include "../Minion.h"
 
 class ChillwindYeti : public Minion {
 public:

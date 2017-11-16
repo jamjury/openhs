@@ -2,10 +2,10 @@
 #define OPENHS_STARTTURNPHASE_H
 
 
-#include "Phase.h"
+#include "OriginEvent.h"
 
-class StartTurnPhase : public Phase {
-	void act() override;
+class StartTurnPhase final : public OriginEvent {
+	void act(Board &) override;
 };
 
 

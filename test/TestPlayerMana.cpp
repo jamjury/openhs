@@ -1,14 +1,12 @@
 #include <gtest/gtest.h>
-#include <Player.h>
-#include <Board.h>
-
+#include <openhs/Player.h>
 
 struct PlayerMana : public ::testing::Test {
 	Player player;
 };
 
 TEST_F(PlayerMana, GainPermanent_LessThanLimit) {
-	unsigned amount = 6;
+	int amount = 6;
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
@@ -17,7 +15,7 @@ TEST_F(PlayerMana, GainPermanent_LessThanLimit) {
 }
 
 TEST_F(PlayerMana, GainPermanent_ExceedLimit) {
-	unsigned amount = 15;
+	int amount = 15;
 
 	ASSERT_GT(amount, Player::MANA_LIMIT);
 
@@ -26,7 +24,7 @@ TEST_F(PlayerMana, GainPermanent_ExceedLimit) {
 }
 
 TEST_F(PlayerMana, GainTemporary_LessThanLimit) {
-	unsigned amount = 5;
+	int amount = 5;
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
@@ -35,7 +33,7 @@ TEST_F(PlayerMana, GainTemporary_LessThanLimit) {
 }
 
 TEST_F(PlayerMana, GainTemporary_ExceedLimit) {
-	unsigned amount = 11;
+	int amount = 11;
 
 	ASSERT_GT(amount, Player::MANA_LIMIT);
 
@@ -44,7 +42,7 @@ TEST_F(PlayerMana, GainTemporary_ExceedLimit) {
 }
 
 TEST_F(PlayerMana, Gain_LessThanLimit) {
-	unsigned amount = 5;
+	int amount = 5;
 
 	ASSERT_LE(amount, Player::MANA_LIMIT);
 
@@ -54,7 +52,7 @@ TEST_F(PlayerMana, Gain_LessThanLimit) {
 }
 
 TEST_F(PlayerMana, Gain_ExceedLimitWithInitialPermanent) {
-	unsigned amount = 6;
+	int amount = 6;
 	player.gain_perm_mana(6);
 
 	ASSERT_LE(player.get_perm_mana(), Player::MANA_LIMIT);
@@ -95,9 +93,9 @@ TEST_F(PlayerMana, Refresh_TemporaryWithPermanent) {
 
 /// amount <= temporary && amount <= permanent
 TEST_F(PlayerMana, Destroy_BothLeft) {
-	unsigned amount = 4;
-	unsigned init_temporary = player.gain_temp_mana(6);
-	unsigned init_permanent = player.gain_perm_mana(8);
+	int amount = 4;
+	int init_temporary = player.gain_temp_mana(6);
+	int init_permanent = player.gain_perm_mana(8);
 
 	ASSERT_LE(amount, player.get_temp_mana());
 	ASSERT_LE(amount, player.get_perm_mana());
@@ -111,9 +109,9 @@ TEST_F(PlayerMana, Destroy_BothLeft) {
 
 /// permanent <= amount && permanent <= temporary
 TEST_F(PlayerMana, Destroy_TemporaryLeft) {
-	unsigned amount = 6;
-	unsigned init_temporary = player.gain_temp_mana(8);
-	unsigned init_permanent = player.gain_perm_mana(4);
+	int amount = 6;
+	int init_temporary = player.gain_temp_mana(8);
+	int init_permanent = player.gain_perm_mana(4);
 
 	ASSERT_LE(player.get_perm_mana(), amount);
 	ASSERT_LE(player.get_perm_mana(), player.get_temp_mana());
@@ -127,9 +125,9 @@ TEST_F(PlayerMana, Destroy_TemporaryLeft) {
 
 /// temporary <= amount <= permanent
 TEST_F(PlayerMana, Destroy_PermanentLeft) {
-	unsigned amount = 6;
+	int amount = 6;
 	player.gain_temp_mana(4);
-	unsigned init_permanent = player.gain_perm_mana(8);
+	int init_permanent = player.gain_perm_mana(8);
 
 	ASSERT_LE(player.get_temp_mana(), amount);
 	ASSERT_LE(amount, player.get_perm_mana());
@@ -142,7 +140,7 @@ TEST_F(PlayerMana, Destroy_PermanentLeft) {
 
 /// temporary <= permanent <= amount
 TEST_F(PlayerMana, Destroy_BothGone) {
-	unsigned amount = 8;
+	int amount = 8;
 	player.gain_temp_mana(4);
 	player.gain_perm_mana(6);
 

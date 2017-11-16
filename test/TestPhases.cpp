@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include <Board.h>
-#include <Player.h>
-#include <event/phase/StartTurnPhase.h>
+#include <openhs/Board.h>
+#include <openhs/Player.h>
+#include <openhs/events/StartTurnPhase.h>
 
 TEST(StartTurnPhase, SwitchPlayer) {
 	Board board;

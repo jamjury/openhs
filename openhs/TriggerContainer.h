@@ -1,36 +1,33 @@
-#ifndef OPENHS_BOARD_H
-#define OPENHS_BOARD_H
+#ifndef OPENHS_TRIGGERCONTAINER_H
+#define OPENHS_TRIGGERCONTAINER_H
 
 
-#include <vector>
 #include <unordered_map>
 #include <typeindex>
+#include <vector>
+#include <functional>
+#include <algorithm>
 
 class Event;
+class Board;
+class OriginEvent;
 
-class Player;
+class TriggerContainer {
+	friend OriginEvent;
 
-class Board final {
-	friend Event;
-
-	Player *player1, *player2;
-	// A player that makes a move
-	Player *cur_player;
+	void trigger_conseq(Event &event);
 
 	std::unordered_map<
 		std::type_index,
 		std::vector<Event *>
 	> triggered_events;
 
-	void trigger_conseq(Event *event);
-
+	Board &board;
 public:
-	Board();
+	explicit TriggerContainer(Board &);
 
-	~Board();
-
-	// Add consequence of a trigger
-	template<typename Trigger>
+	// Add consequence of an origin
+	template<typename Origin>
 	void add_conseq(Event *conseq);
 
 	// Add consequence of a multiple triggers
@@ -44,22 +41,10 @@ public:
 	// Remove consequence of a multiple triggers
 	template<typename Trigger1, typename Trigger2, typename ...OtherTriggers>
 	void remove_conseq(Event *conseq);
-
-	template<typename StartingEvent, typename ...Args>
-	void start_event(Args &&...args);
-
-	Player &get_cur_player() const;
-
-	Player &get_cur_opp() const;
-
-	void switch_player();
 };
 
-#include <type_traits>
-#include <algorithm>
-
 template<typename Trigger>
-void Board::add_conseq(Event *conseq) {
+void TriggerContainer::add_conseq(Event *conseq) {
 	static_assert(
 		std::is_base_of<Event, Trigger>::value,
 		"You can only pass classes that derive from Event here"
@@ -69,40 +54,28 @@ void Board::add_conseq(Event *conseq) {
 }
 
 template<typename Trigger1, typename Trigger2, typename ...OtherTriggers>
-void Board::add_conseq(Event *conseq) {
+void TriggerContainer::add_conseq(Event *conseq) {
 	add_conseq<Trigger1>(conseq);
 	add_conseq<Trigger2, OtherTriggers...>(conseq);
 }
 
 template<typename Trigger>
-void Board::remove_conseq(Event *conseq) {
+void TriggerContainer::remove_conseq(Event *conseq) {
 	static_assert(
 		std::is_base_of<Event, Trigger>::value,
-		"You can only pass classes that derive from Event here"
+		"You can only pass classes that derive from OriginEvent here"
 	);
 
 	auto &conseqs = triggered_events[typeid(Trigger)];
-	auto new_end = std::remove(conseqs.begin(), conseqs.end(), conseq);
+	auto new_end = remove(conseqs.begin(), conseqs.end(), conseq);
 	conseqs.erase(new_end, conseqs.end());
 }
 
 template<typename Trigger1, typename Trigger2, typename ...OtherTriggers>
-void Board::remove_conseq(Event *conseq) {
+void TriggerContainer::remove_conseq(Event *conseq) {
 	remove_conseq<Trigger1>(conseq);
 	remove_conseq<Trigger2, OtherTriggers...>(conseq);
 }
 
-template<typename StartingEvent, typename ...Args>
-void Board::start_event(Args &&... args) {
-	static_assert(
-		std::is_base_of<Event, StartingEvent>::value,
-		"You can only pass classes that derive from Event here"
-	);
 
-	auto *event = new StartingEvent(std::forward<Args>(args)...);
-	event->set_board(this);
-	event->occur();
-	delete event;
-}
-
-#endif //OPENHS_BOARD_H
+#endif //OPENHS_TRIGGERCONTAINER_H

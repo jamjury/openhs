@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <Zone.h>
+#include <openhs/Zone.h>
 
 class Card {};
 
