@@ -1,4 +1,5 @@
 #include "Board.h"
+#include "TriggerContainer.h"
 
 Board::Board() :
 	player1(),

@@ -1,5 +1,4 @@
 #include "StartTurnPhase.h"
-#include "openhs/Board.h"
 
 void StartTurnPhase::act(Board &board) {
 	board.switch_player();

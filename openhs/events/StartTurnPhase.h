@@ -4,7 +4,7 @@
 
 #include "OriginEvent.h"
 
-class StartTurnPhase final : public OriginEvent {
+class StartTurnPhase final : public OriginEvent<StartTurnPhase> {
 	void act(Board &) override;
 };
 
